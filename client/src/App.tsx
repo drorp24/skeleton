@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [message, setMessage] = useState('');
-  console.log('message: ', message);
 
   useEffect(() => {
     fetch('/api/message')
