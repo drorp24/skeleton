@@ -1,15 +1,20 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginReact from 'eslint-plugin-react';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginImport from 'eslint-plugin-import';
 
 export default [
   { ignores: ['dist'] },
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx, ts, tsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
       parserOptions: {
         ecmaVersion: 'latest',
@@ -22,6 +27,22 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      prettier: eslintPluginPrettier,
+      import: eslintPluginImport,
+    },
+    extends: [
+      'eslint:recommended',
+      'plugin:react/recommended',
+      'plugin:prettier/recommended',
+      eslintConfigPrettier,
+      'plugin:import/errors',
+      'plugin:import/warnings',
+      'plugin:import/typescript',
+    ],
+    settings: {
+      react: {
+        version: 'detect', // Automatically detect the React version
+      },
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -33,6 +54,14 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'prettier/prettier': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: [['builtin', 'external', 'internal']],
+          'newlines-between': 'always',
+        },
+      ],
     },
   },
-]
+];

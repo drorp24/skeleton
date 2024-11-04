@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
     <div>
       <h1>React Exercises Skeleton</h1>
       <p>Message from backend: {message}</p>
+      <Button variant='contained' color='primary'>
+        Mui Button
+      </Button>
     </div>
   );
 }
